@@ -1,0 +1,509 @@
+{
+	"info": {
+		"_postman_id": "fef0df04-69f1-466a-bc64-e158ad397514",
+		"name": "Tests for goals on clickup",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all goals",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12f41be2-304f-4285-9c56-a0751aab0dc2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5257e11f-5e7a-488d-949b-e47bb0eaa7ef",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "64f27ec3-1c3e-4368-915e-bb408290c467",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "pk_74465815_L09HYL50EFZT3JHV34MVT4OWMUDZ0BEQ",
+						"key": "Authorization",
+						"in": "header"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/team/9015696929/goal?include_completed=true",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"team",
+						"9015696929",
+						"goal"
+					],
+					"query": [
+						{
+							"key": "include_completed",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create goal",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "20d028cd-93b6-410f-9746-c5ce2d43b995",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ebd64a61-29a4-4c6e-b73e-0a8c85b86209",
+						"exec": [
+							"",
+							"    var jsonData = pm.response.json();",
+							"   ",
+							"    ",
+							"pm.collectionVariables.set(\"goal.id\", jsonData.goal.id);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"}); "
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "b0ff5954-226e-4d69-ac68-14cf80cd54e5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "pk_74465815_L09HYL50EFZT3JHV34MVT4OWMUDZ0BEQ",
+						"key": "Authorization",
+						"in": "header"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "pk_74465815_L09HYL50EFZT3JHV34MVT4OWMUDZ0BEQ"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"New goal {{$randomFileName}}\",\n    // \"name\": \"{{folder_name}}\",\n    \"due_date\": 1568036964079,\n    \"description\": \"Goal Description\",\n    \"multiple_owners\": true,\n    \"owners\": [\n        74465815\n    ],\n    \"color\": \"#32a852\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/team/9015696929/goal"
+			},
+			"response": []
+		},
+		{
+			"name": "Get goal",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "418a7c83-0213-4fa5-97c6-04400bf507cd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3ff2ad23-5b32-4314-8995-b92635ace8ed",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "5097d5e1-7aa6-4423-817f-e511ed3ca2e0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "pk_74465815_L09HYL50EFZT3JHV34MVT4OWMUDZ0BEQ",
+						"key": "Authorization",
+						"in": "header"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{url}}/goal/{{goal.id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Update goal",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e4f24fa-a454-4314-99b0-76df1febf04e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7a02a77a-76d8-4543-be4e-25bc7555c186",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "47123454-2eb8-4b8e-a039-89435b8bd81d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "pk_74465815_L09HYL50EFZT3JHV34MVT4OWMUDZ0BEQ",
+						"key": "Authorization",
+						"in": "header"
+					}
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Updated {{$randomBankAccountName}}\",\n    \"due_date\": 1568036964079,\n    \"description\": \"Updated Goal again Description\",\n    \"rem_owners\": [\n      74465815\n    ],\n    \"add_owners\": [\n      74465815\n    ],\n    \"color\": \"#32a852\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/goal/{{goal.id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Create key result",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "103ae0e4-e61d-48df-904f-afc5972ee1f9",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "04692b2a-4037-4d1d-944d-9f47e0278931",
+						"exec": [
+							"    var jsonData = pm.response.json();",
+							"   ",
+							"    ",
+							"pm.collectionVariables.set(\"key_result\", jsonData.key_result.id);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"}); "
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "c6e5a2d1-8b5a-4787-aaec-ec2ff34acf36",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "pk_74465815_L09HYL50EFZT3JHV34MVT4OWMUDZ0BEQ",
+						"key": "Authorization",
+						"in": "header"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"New Key Result Name\",\n    \"owners\": [\n      74465815\n    ],\n    \"type\": \"number\",\n    \"steps_start\": 0,\n    \"steps_end\": 10,\n    \"unit\": \"km\",\n    \"task_ids\": [],\n    \"list_ids\": []\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/goal/{{goal.id}}/key_result"
+			},
+			"response": []
+		},
+		{
+			"name": "Edit key result",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "194afe20-3fda-4408-bf87-896d1791a923",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"}); "
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4f8ff880-8625-43bd-b044-519d303ea87b",
+						"exec": [],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "7468a5d9-e06b-4ea8-be74-496f915d0862",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "pk_74465815_L09HYL50EFZT3JHV34MVT4OWMUDZ0BEQ",
+						"key": "Authorization",
+						"in": "header"
+					}
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"steps_current\": 5,\n    \"note\": \"Target achieved\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/key_result/{{key_result}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete key result",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "302eeafe-a8e6-4adb-8e96-8de3e7ba9695",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"}); "
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "166ff54b-e009-4ce2-8277-659c71db091f",
+						"exec": [],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "bf49f823-76ba-480e-acfa-795bca6a5179",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "pk_74465815_L09HYL50EFZT3JHV34MVT4OWMUDZ0BEQ",
+						"key": "Authorization",
+						"in": "header"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "{{url}}/key_result/{{key_result}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete goal",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "32105501-e567-4837-a5eb-05bfbc582933",
+						"exec": [
+							"//var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4a6b4aac-103f-4364-b7b3-76bcd6fe3b97",
+						"exec": [
+							"//pm.collectionVariables.set(\"goal.id\", jsonData.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "c2038644-cc20-4adb-8452-a0fff624dc4a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "pk_74465815_L09HYL50EFZT3JHV34MVT4OWMUDZ0BEQ",
+						"key": "Authorization",
+						"in": "header"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "{{url}}/goal/{{goal.id}}"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2a012499-00a7-4309-9d53-add030f03af5",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6a84812c-5821-4455-884d-0ec9d4c9860d",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "goal.id",
+			"value": ""
+		},
+		{
+			"key": "variable_key",
+			"value": "",
+			"disabled": true
+		},
+		{
+			"key": "key_result",
+			"value": ""
+		}
+	]
+}
